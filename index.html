@@ -131,6 +131,45 @@ body.fade-out {
       .left { width: 100%; padding: 4rem 1.5rem; }
       .right { height: 60vw; }
     }
+
+.email-section {
+  margin-top: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.email-section input {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255,255,255,0.4);
+  color: #fff;
+  font-family: 'Century Gothic', Futura, Arial, sans-serif;
+  font-size: 0.9rem;
+  padding: 0.3rem 0.2rem;
+  outline: none;
+  width: 260px;
+  transition: border-color 0.2s;
+  caret-color: #fff;
+}
+
+.email-section input:focus {
+  border-bottom-color: rgba(255,255,255,0.9);
+  animation: blink-cursor 1s step-end infinite;
+}
+
+.email-section input::placeholder {
+  color: rgba(255,255,255,0.4);
+  font-style: italic;
+}
+
+#email-validation {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+
+
   </style>
 </head>
 
@@ -168,6 +207,13 @@ body.fade-out {
         </a>
       </div>
 
+     <div class="email-section">
+  <input type="email" id="email-input" placeholder="join the mailing list" />
+  <span id="email-validation"></span>
+</div>
+
+
+
     </div>
   </div>
 
@@ -193,6 +239,58 @@ body.fade-out {
         }, 350);
       });
     });
+window.addEventListener('load', () => {
+  emailInput.focus()
+})
+const emailInput = document.getElementById('email-input')
+const emailValidation = document.getElementById('email-validation')
+
+const SUPABASE_URL = 'https://yahchujwfhqimkparbad.supabase.co'
+const SUPABASE_KEY = 'sb_publishable_76TS92dGX6UBZvpVAGXo4w_FGmIipyx'
+
+const isValidEmail = (val) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)
+
+emailInput.addEventListener('input', () => {
+  const val = emailInput.value.trim()
+  if (!val) {
+    emailValidation.textContent = ''
+    return
+  }
+  emailValidation.textContent = isValidEmail(val) ? '✓' : '✕'
+})
+
+emailInput.addEventListener('keydown', async (e) => {
+  if (e.key !== 'Enter') return
+  const email = emailInput.value.trim()
+  if (!isValidEmail(email)) return
+
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/emails`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_KEY,
+        'Authorization': `Bearer ${SUPABASE_KEY}`
+      },
+      body: JSON.stringify({ email })
+    })
+
+    if (res.ok) {
+      emailInput.value = ''
+      emailValidation.textContent = ''
+      emailInput.placeholder = "you're on the list ✓"
+      emailInput.disabled = true
+    } else {
+      emailInput.placeholder = 'try again'
+      emailInput.value = ''
+      emailValidation.textContent = ''
+    }
+  } catch {
+    emailInput.placeholder = 'try again'
+    emailInput.value = ''
+    emailValidation.textContent = ''
+  }
+})
   </script>
 
 
