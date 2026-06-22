@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -9,22 +9,22 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --bg: #000;
-  --top-bg: #fff;        /* white bar on dark mode */
+  --bg: #fff;
+  --top-bg: #fff;
   --top-text: rgba(0,0,0,0.6);
   --top-border: rgba(0,0,0,0.1);
-  --bar-bg: #fff;        /* white bottom bar on dark mode */
+  --bar-bg: #fff;
   --bar-text: #000;
   --bar-border: rgba(0,0,0,0.15);
   --btn-border: rgba(0,0,0,0.3);
 }
 
-[data-theme='light'] {
-  --bg: #fff;
-  --top-bg: #000;        /* black bar on light mode */
+[data-theme='dark'] {
+  --bg: #000;
+  --top-bg: #000;
   --top-text: rgba(255,255,255,0.6);
   --top-border: rgba(255,255,255,0.1);
-  --bar-bg: #000;        /* black bottom bar on light mode */
+  --bar-bg: #000;
   --bar-text: #fff;
   --bar-border: rgba(255,255,255,0.1);
   --btn-border: rgba(255,255,255,0.3);
@@ -52,7 +52,7 @@
       top: 0;
       left: 0;
       right: 0;
-      height: 52px;
+      height: 60px;
       background: var(--top-bg);
       display: flex;
       align-items: center;
@@ -64,8 +64,8 @@
     }
 
     .profile-thumb {
-      width: 36px;
-      height: 36px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
       object-fit: cover;
       object-position: center;
@@ -85,7 +85,7 @@
     /* PHOTO GRID */
     .photo-grid {
       margin-top: 52px;
-      margin-bottom: 72px;
+      margin-bottom: 60px;
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 0px;
@@ -105,7 +105,7 @@
       bottom: 0;
       left: 0;
       right: 0;
-      height: 64px;
+      height: 60px;
       background: var(--bar-bg);
       display: flex;
       align-items: center;
@@ -181,7 +181,126 @@
     <button id="theme-toggle">☀️</button>
     <button id="connect-button">🦊</button>
   </div>
+<script type="module">
 
+import { createAppKit } from '@reown/appkit'
+import { WagmiAdapter } from '@reown/appkit-adapter-wagmi'
+import { mainnet, polygon, base } from '@reown/appkit/networks'
+
+
+const projectId = 'd759ea6b6772ffe841237056e50c84e6'
+
+const networks = [
+  mainnet,
+  polygon,
+  base
+]
+
+
+const wagmiAdapter = new WagmiAdapter({
+  projectId,
+  networks
+})
+
+
+const modal = createAppKit({
+  adapters: [wagmiAdapter],
+  networks,
+  metadata: {
+    name: 'Anand Sharma Art',
+    description: 'Digital Art Gallery & Marketplace',
+    url: window.location.origin,
+    icons: ['https://yourdomain.com/favicon.ico']
+  },
+  projectId,
+  excludeWalletIds: [
+    '8a0ee50d1f22f6651afcae7eb4253e52a3310b90af5daef78a8c4929a9bb99d4'
+  ],
+  features: {
+    analytics: false,
+    connectMethodsOrder: ['wallet'],
+    networkSwitcher: false
+  },
+  featuredWalletIds: [
+    'c57ca95b47569778a828d19178114f4db188b89b763c899ba0be274e97267d96',
+    '4622a2b2d6af1c9844944291e5e7351a6aa24cd7b23099efac1b2fd875da31a0',
+    'fd20dc426fb37566d803205b19bbc1d4096b248ac04548e3cfb6b3a38bd033aa'
+  ],
+  enableWalletConnect: false
+})
+
+
+console.log(modal)
+console.log('after AppKit')
+
+// ===== CONNECT BUTTON =====
+const connectBtn = document.getElementById('connect-button')
+
+if (connectBtn) {
+  connectBtn.addEventListener('click', async () => {
+    console.log('CONNECT BUTTON CLICKED')
+
+    try {
+      console.log('modal.open exists:', typeof modal.open)
+
+      const result = await modal.open({ view: 'Connect' })
+
+      console.log('OPEN CALLED SUCCESSFULLY')
+      console.log('OPEN RESULT:', result)
+
+      // Check whether modal element appeared
+      setTimeout(() => {
+        console.log(
+          'appkit modal:',
+          document.querySelector('appkit-modal')
+        )
+
+        console.log(
+          'w3m modal:',
+          document.querySelector('w3m-modal')
+        )
+      }, 1000)
+
+    } catch (err) {
+      console.error('OPEN FAILED')
+      console.error(err)
+    }
+  })
+}
+
+modal.subscribeEvents((event) => {
+  const eventData = event?.data
+  const btn = document.getElementById('connect-button')
+  if (!btn) return
+
+  if (eventData?.event === 'CONNECT_SUCCESS') {
+    btn.classList.add('connected')
+  }
+  if (
+    eventData?.event === 'DISCONNECT_SUCCESS' ||
+    eventData?.event === 'DISCONNECTED' ||
+    eventData?.event === 'LOGOUT'
+  ) {
+    btn.classList.remove('connected')
+  }
+})
+
+modal.subscribeEvents(event => {
+  const btn = document.getElementById('connect-button')
+  if (!btn) return
+
+  if (event.data.event === 'connected') {
+    btn.classList.add('connected')
+    btn.textContent = 'Connected'
+  } else if (event.data.event === 'disconnected') {
+    btn.classList.remove('connected')
+    btn.textContent = 'Connect Wallet'
+  }
+})
+
+
+
+</script>
   <script>
     // Random quote
 const quotes = [
@@ -230,9 +349,55 @@ if (homeBtn) {
     window.location.href = '/'
   })
 }
+// ===== EMAIL BUTTON =====
+// On click: copy email, button shows ✓ for 2s then reverts to ✉️
+const emailBtn = document.getElementById('email-button')
+const email = 'youremail@example.com'
+
+if (emailBtn) {
+  emailBtn.addEventListener('click', () => {
+    const original = emailBtn.textContent
+
+    const confirm = () => {
+      emailBtn.textContent = '✅'
+      setTimeout(() => {
+        emailBtn.textContent = original
+      }, 1000)
+    }
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(email)
+        .then(confirm)
+        .catch(() => {
+          // Fallback
+          const ta = document.createElement('textarea')
+          ta.value = email
+          ta.style.position = 'fixed'
+          ta.style.opacity = '0'
+          document.body.appendChild(ta)
+          ta.focus()
+          ta.select()
+          document.execCommand('copy')
+          document.body.removeChild(ta)
+          confirm()
+        })
+    } else {
+      const ta = document.createElement('textarea')
+      ta.value = email
+      ta.style.position = 'fixed'
+      ta.style.opacity = '0'
+      document.body.appendChild(ta)
+      ta.focus()
+      ta.select()
+      document.execCommand('copy')
+      document.body.removeChild(ta)
+      confirm()
+    }
+  })
+}
+
   </script>
 
-  <script type="module" src="/main.js"></script>
 
 </body>
 </html>
