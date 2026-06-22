@@ -136,6 +136,10 @@ if (homeBtn) {
 // ===== THEME TOGGLE =====
 const toggleBtn = document.getElementById('theme-toggle')
 if (toggleBtn) {
+  // Set correct emoji on load based on initial theme
+  const initialTheme = document.documentElement.getAttribute('data-theme')
+  toggleBtn.textContent = initialTheme === 'dark' ? '☀️' : '🌙'
+
   toggleBtn.addEventListener('click', () => {
     const html = document.documentElement
     const current = html.getAttribute('data-theme')
