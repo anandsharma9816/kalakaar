@@ -22,7 +22,7 @@
 [data-theme='dark'] {
   --bg: #000;
   --top-bg: #000;
-  --top-text: rgba(255,255,255,0.6);
+  --top-text: #fff;
   --top-border: rgba(255,255,255,0.1);
   --bar-bg: #000;
   --bar-text: #fff;
@@ -173,6 +173,11 @@
     <img src="images/artwork30.jpg" loading="lazy">
     <img src="images/artwork31.jpg" loading="lazy">
     <img src="images/artwork32.jpg" loading="lazy">
+    <img src="images/artwork33.jpg" loading="lazy">
+    <img src="images/artwork34.jpg" loading="lazy">
+    <img src="images/artwork35.jpg" loading="lazy">
+    <img src="images/artwork36.jpg" loading="lazy">
+  
   </div>
 
   <div class="bottom-bar">
@@ -326,16 +331,16 @@ function applyTheme(theme) {
   document.documentElement.setAttribute('data-theme', theme)
   toggleBtn.textContent = theme === 'dark' ? '☀️' : '🌙'
   profileImg.src = theme === 'dark'
-    ? 'images/profile_black.jpg'
-    : 'images/profile_white.jpg'
+    ? 'images/profile_white.jpg'
+    : 'images/profile_black.jpg'
 }
 
 // Read initial theme from html attribute, don't force it
 const initialTheme = document.documentElement.getAttribute('data-theme') || 'dark'
 toggleBtn.textContent = initialTheme === 'dark' ? '☀️' : '🌙'
 profileImg.src = initialTheme === 'dark'
-  ? 'images/profile_black.jpg'
-  : 'images/profile_white.jpg'
+  ? 'images/profile_white.jpg'
+  : 'images/profile_black.jpg'
 
 toggleBtn.addEventListener('click', () => {
   const current = document.documentElement.getAttribute('data-theme')
@@ -349,55 +354,35 @@ if (homeBtn) {
     window.location.href = '/'
   })
 }
+
 // ===== EMAIL BUTTON =====
-// On click: copy email, button shows ✓ for 2s then reverts to ✉️
+// On click: copy email, button shows ✓ for 1s then reverts to ✉️
 const emailBtn = document.getElementById('email-button')
 const email = 'youremail@example.com'
 
 if (emailBtn) {
-  emailBtn.addEventListener('click', () => {
+  emailBtn.addEventListener('click', async () => {
+
     const original = emailBtn.textContent
 
-    const confirm = () => {
-      emailBtn.textContent = '✅'
-      setTimeout(() => {
-        emailBtn.textContent = original
-      }, 1000)
+    // Change button immediately
+    emailBtn.textContent = '✅'
+
+    setTimeout(() => {
+      emailBtn.textContent = original
+    }, 1000)
+
+    // Copy email in the background
+    try {
+      await navigator.clipboard.writeText(email)
+    } catch (err) {
+      console.log('Clipboard failed')
     }
 
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(email)
-        .then(confirm)
-        .catch(() => {
-          // Fallback
-          const ta = document.createElement('textarea')
-          ta.value = email
-          ta.style.position = 'fixed'
-          ta.style.opacity = '0'
-          document.body.appendChild(ta)
-          ta.focus()
-          ta.select()
-          document.execCommand('copy')
-          document.body.removeChild(ta)
-          confirm()
-        })
-    } else {
-      const ta = document.createElement('textarea')
-      ta.value = email
-      ta.style.position = 'fixed'
-      ta.style.opacity = '0'
-      document.body.appendChild(ta)
-      ta.focus()
-      ta.select()
-      document.execCommand('copy')
-      document.body.removeChild(ta)
-      confirm()
-    }
   })
 }
 
   </script>
-
 
 </body>
 </html>
