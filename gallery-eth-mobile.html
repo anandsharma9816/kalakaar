@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>kalakaar (ETH)</title>
+  <link rel="icon" type="image/svg+xml" href="images/eth-logo.svg">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #000;
+  --top-bg: #fff;        /* white bar on dark mode */
+  --top-text: rgba(0,0,0,0.6);
+  --top-border: rgba(0,0,0,0.1);
+  --bar-bg: #fff;        /* white bottom bar on dark mode */
+  --bar-text: #000;
+  --bar-border: rgba(0,0,0,0.15);
+  --btn-border: rgba(0,0,0,0.3);
+}
+
+[data-theme='light'] {
+  --bg: #fff;
+  --top-bg: #000;        /* black bar on light mode */
+  --top-text: rgba(255,255,255,0.6);
+  --top-border: rgba(255,255,255,0.1);
+  --bar-bg: #000;        /* black bottom bar on light mode */
+  --bar-text: #fff;
+  --bar-border: rgba(255,255,255,0.1);
+  --btn-border: rgba(255,255,255,0.3);
+}
+
+    html, body {
+      background: var(--bg);
+      transition: background 0.3s, color 0.3s;
+    }
+
+    body {
+      color: var(--text);
+      font-family: 'Century Gothic', Helvetica, Arial, sans-serif;
+      opacity: 0;
+      animation: fadeIn 0.35s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    /* TOP BAR */
+    .top-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 52px;
+      background: var(--top-bg);
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      padding: 0 1rem;
+      z-index: 100;
+      border-bottom: 1px solid var(--top-border);
+      transition: background 0.3s, border-color 0.3s;
+    }
+
+    .profile-thumb {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center;
+      flex-shrink: 0;
+    }
+
+    .top-quote {
+      font-size: 0.78rem;
+      font-style: italic;
+      color: var(--top-text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      transition: color 0.3s;
+    }
+
+    /* PHOTO GRID */
+    .photo-grid {
+      margin-top: 52px;
+      margin-bottom: 72px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0px;
+      background: var(--bg);
+      transition: background 0.3s;
+    }
+
+    .photo-grid img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* BOTTOM BAR */
+    .bottom-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 64px;
+      background: var(--bar-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.2rem;
+      z-index: 100;
+      border-top: 1px solid var(--bar-border);
+      transition: background 0.3s, border-color 0.3s;
+    }
+
+    .bottom-bar button {
+      background: transparent;
+      border: 1px solid var(--btn-border);
+      border-radius: 6px;
+      color: var(--bar-text);
+      font-size: 1.4rem;
+      cursor: pointer;
+      width: 48px;
+      height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 0.3s, color 0.3s;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="top-bar">
+    <img src="images/profile_black.jpg" class="profile-thumb" id="profile-img" alt="Anand Sharma">
+    <span class="top-quote" id="top-quote"></span>
+  </div>
+
+  <div class="photo-grid">
+    <img src="images/artwork1.jpg" loading="lazy">
+    <img src="images/artwork2.jpg" loading="lazy">
+    <img src="images/artwork3.jpg" loading="lazy">
+    <img src="images/artwork4.jpg" loading="lazy">
+    <img src="images/artwork5.jpg" loading="lazy">
+    <img src="images/artwork6.jpg" loading="lazy">
+    <img src="images/artwork7.jpg" loading="lazy">
+    <img src="images/artwork8.jpg" loading="lazy">
+    <img src="images/artwork9.jpg" loading="lazy">
+    <img src="images/artwork10.jpg" loading="lazy">
+    <img src="images/artwork11.jpg" loading="lazy">
+    <img src="images/artwork12.jpg" loading="lazy">
+    <img src="images/artwork13.jpg" loading="lazy">
+    <img src="images/artwork14.jpg" loading="lazy">
+    <img src="images/artwork15.jpg" loading="lazy">
+    <img src="images/artwork16.jpg" loading="lazy">
+    <img src="images/artwork17.jpg" loading="lazy">
+    <img src="images/artwork18.jpg" loading="lazy">
+    <img src="images/artwork19.jpg" loading="lazy">
+    <img src="images/artwork20.jpg" loading="lazy">
+    <img src="images/artwork21.jpg" loading="lazy">
+    <img src="images/artwork22.jpg" loading="lazy">
+    <img src="images/artwork23.jpg" loading="lazy">
+    <img src="images/artwork24.jpg" loading="lazy">
+    <img src="images/artwork25.jpg" loading="lazy">
+    <img src="images/artwork26.jpg" loading="lazy">
+    <img src="images/artwork27.jpg" loading="lazy">
+    <img src="images/artwork28.jpg" loading="lazy">
+    <img src="images/artwork29.jpg" loading="lazy">
+    <img src="images/artwork30.jpg" loading="lazy">
+    <img src="images/artwork31.jpg" loading="lazy">
+    <img src="images/artwork32.jpg" loading="lazy">
+  </div>
+
+  <div class="bottom-bar">
+    <button id="email-button">✉️</button>
+    <button id="home-button">🏠</button>
+    <button id="theme-toggle">☀️</button>
+    <button id="connect-button">🦊</button>
+  </div>
+
+  <script>
+    // Random quote
+const quotes = [
+  "Sometimes, things don't always go to plan.",
+  "I hate you more than I love me, and I love me very much.",
+  "Your sins are yours, and my sins are also yours.",
+  "Call him the biggest coward, he who fears the truth.",
+  "Know your enemy.",
+  "Press the damn button.",
+  "They took my best years from me.",
+  "When I meet a sinless man, I will claim to have found God."
+]
+const quoteEl = document.getElementById('top-quote')
+if (quoteEl) {
+  quoteEl.textContent = '\u201C' + quotes[Math.floor(Math.random() * quotes.length)] + '\u201D'
+}
+
+// Theme
+const toggleBtn = document.getElementById('theme-toggle')
+const profileImg = document.getElementById('profile-img')
+
+function applyTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme)
+  toggleBtn.textContent = theme === 'dark' ? '☀️' : '🌙'
+  profileImg.src = theme === 'dark'
+    ? 'images/profile_black.jpg'
+    : 'images/profile_white.jpg'
+}
+
+// Read initial theme from html attribute, don't force it
+const initialTheme = document.documentElement.getAttribute('data-theme') || 'dark'
+toggleBtn.textContent = initialTheme === 'dark' ? '☀️' : '🌙'
+profileImg.src = initialTheme === 'dark'
+  ? 'images/profile_black.jpg'
+  : 'images/profile_white.jpg'
+
+toggleBtn.addEventListener('click', () => {
+  const current = document.documentElement.getAttribute('data-theme')
+  applyTheme(current === 'dark' ? 'light' : 'dark')
+})
+
+// Home
+const homeBtn = document.getElementById('home-button')
+if (homeBtn) {
+  homeBtn.addEventListener('click', () => {
+    window.location.href = '/'
+  })
+}
+  </script>
+
+  <script type="module" src="/main.js"></script>
+
+</body>
+</html>

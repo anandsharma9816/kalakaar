@@ -5,6 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <link rel="icon" type="image/svg+xml" href="images/eth-logo.svg">
   <title>kalakaar (ETH)</title>
+  <script>
+    if (window.innerWidth <= 768) {
+      window.location.replace('gallery-eth-mobile.html')
+    }
+  </script>
   <link rel="stylesheet" href="style.css" />
 </head>
 
@@ -546,7 +551,6 @@
   <footer>
     &copy; 2025 Anand Sharma. All rights reserved.
   </footer>
-
 
   <!-- JS logic from main.js -->
   <script type="module" src="/main.js"></script>
