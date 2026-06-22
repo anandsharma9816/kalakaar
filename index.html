@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>kalakaar</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Century Gothic', 'CenturyGothic', 'AppleGothic', Futura, 'Trebuchet MS', Arial, sans-serif;
+  height: 100vh;
+  display: flex;
+  overflow: hidden;
+
+  opacity: 1;
+  transform: scale(1);
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s ease;
+}
+
+body.fade-out {
+  opacity: 0;
+  transform: scale(0.98);
+}
+
+    /* LEFT PANEL */
+    .left {
+      width: 40%;
+      background: #000;
+      color: #fff;
+      padding: 3rem 2.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center; /* Centers content vertically */
+      align-items: center;     /* Centers content horizontally */
+    }
+
+    .content-wrapper {
+      max-width: 440px;
+      width: 100%;
+    }
+
+    /* HEADING STYLES FROM IMAGE_202997.PNG */
+    .name-heading {
+      font-size: 2.2rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      line-height: 1.25;
+      margin-bottom: 2.5rem;
+      white-space: nowrap;
+    }
+
+    .name-hindi {
+      font-weight: 400;
+      letter-spacing: 1px;
+    }
+
+    /* POEM STYLES WITH TIGHTER BOTTOM GAP */
+    .poem {
+      font-size: 1rem;
+      line-height: 1.8;
+      opacity: 0.9;
+      margin-bottom: 1.5rem; /* Pulled up closer to the icon buttons */
+    }
+
+    .poem .stanza {
+      display: block;
+    }
+
+    .poem .gap {
+      display: block;
+      height: 1.2rem;
+    }
+
+    /* MINIMALIST ICON BUTTON ROW */
+    .chain-section {
+      display: flex;
+      gap: 0.8rem;
+      align-items: center;
+    }
+
+.chain-btn { background: transparent; border: 1px solid rgba(255, 255, 255, 0.4); border-radius: 6px; color: #fff; cursor: pointer; width: 48px; /* Matches gallery icon button proportions */ height: 40px; /* Matches gallery icon button proportions */ display: inline-flex; align-items: center; justify-content: center; transition: background-color 0.2s, border-color 0.2s; text-decoration: none; }
+
+    /* INDIVIDUAL SYSTEM HOVER THEMES */
+    .btn-eth:hover {
+      background-color: rgba(126, 184, 245, 0.15);
+      border-color: #7eb3f5;
+    }
+
+    .btn-sol:hover {
+      background-color: rgba(20, 241, 149, 0.12);
+      border-color: #14F195;
+    }
+
+    .btn-poly:hover {
+      background-color: rgba(130, 71, 229, 0.15);
+      border-color: #8247e5;
+    }
+
+    .chain-icon {
+      width: 23px;
+      height: 23px;
+      display: block;
+    }
+
+    /* RIGHT PANEL */
+    .right {
+      flex: 1;
+      background: #111;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .right img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      opacity: 0.88;
+    }
+
+    /* MOBILE RESPONSIVENESS */
+    @media (max-width: 768px) {
+      .name-heading { font-size: 1.8rem; white-space: normal; }
+    }
+    @media (max-width: 640px) {
+      body { flex-direction: column; height: auto; overflow: auto; }
+      .left { width: 100%; padding: 4rem 1.5rem; }
+      .right { height: 60vw; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="left">
+    <div class="content-wrapper">
+      
+      <div class="name-heading">
+        Anand Sharma | <span class="name-hindi" lang="hi"><strong>कलाकार</strong></span>
+      </div>
+
+      <div class="poem">
+        <span class="stanza">I was never very good at art in school.</span>
+        <span class="stanza">I thought it was a waste of time.</span>
+        <span class="gap"></span>
+        <span class="stanza">Now, my art is my pride.</span>
+        <span class="stanza">Tomorrow, it will set me free.</span>
+      </div>
+
+      <div class="chain-section">
+       <!-- 1. Ethereum Button -->
+        <a class="chain-btn btn-eth" href="gallery-eth.html?chain=solana">
+ 	 <img class="chain-icon" src="images/eth-logo.svg" alt="Solana">
+        </a>
+
+        <!-- 2. Solana Button -->
+        <a class="chain-btn btn-sol" href="gallery-sol.html?chain=solana">
+ 	 <img class="chain-icon" src="images/sol-logo.svg" alt="Solana">
+        </a>
+
+        <!-- 3. Polygon Button -->
+        <a class="chain-btn btn-poly" href="gallery-pol.html?chain=solana">
+ 	 <img class="chain-icon" src="images/pol-logo.svg" alt="Solana">
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="right">
+    <img
+      src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.etsystatic.com%2F15320292%2Fr%2Fil%2F0c20d9%2F3158834106%2Fil_fullxfull.3158834106_iqca.jpg&f=1&nofb=1&ipt=593ec57d0dbd64c9e3102fb0ac62f65c56883200a08d6bc8a0a9308302a4b7c4"
+      alt="Featured artwork"
+      onerror="this.parentElement.style.background='#111'"
+    />
+  </div>
+
+  <script>
+    document.querySelectorAll('.chain-btn').forEach(button => {
+      button.addEventListener('click', function (e) {
+        e.preventDefault();
+
+        const destination = this.href;
+
+        document.body.classList.add('fade-out');
+
+        setTimeout(() => {
+          window.location.href = destination;
+        }, 350);
+      });
+    });
+  </script>
+
+
+
+
+
+</body>
+</html>
