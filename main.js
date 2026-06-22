@@ -24,7 +24,7 @@ if (quoteElement) {
 
 // ===== WALLET CONNECT =====
 const projectId = 'd759ea6b6772ffe841237056e50c84e6'
-const networks = [mainnet, polygon, zora, base]
+const networks = [mainnet, polygon, base]
 
 const wagmiAdapter = new WagmiAdapter({ projectId, networks })
 
