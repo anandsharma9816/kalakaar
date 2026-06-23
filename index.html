@@ -112,14 +112,76 @@ body.fade-out {
       background: #111;
       position: relative;
       overflow: hidden;
+      display: flex;
+      gap: 0;
     }
 
-    .right img {
+    /* ELEVATOR COLUMNS */
+    .col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      position: absolute;
+      top: 0;
+      width: calc(25% - 3px);
+      will-change: transform;
+    }
+
+    .col:nth-child(1) { left: 0;                    animation: scrollUp   80s linear infinite; }
+    .col:nth-child(2) { left: calc(25% + 1px);      animation: scrollDown 80s linear infinite; }
+    .col:nth-child(3) { left: calc(50% + 2px);      animation: scrollUp   80s linear infinite; }
+    .col:nth-child(4) { left: calc(75% + 3px);      animation: scrollDown 80s linear infinite; }
+
+    .col img {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
+      height: auto;
       display: block;
-      opacity: 0.88;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+.right:hover img {
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+}
+
+.right img:hover {
+  opacity: 1;
+}
+    @keyframes scrollUp {
+      0%   { transform: translateY(0); }
+      100% { transform: translateY(-50%); }
+    }
+
+    @keyframes scrollDown {
+      0%   { transform: translateY(-50%); }
+      100% { transform: translateY(0); }
+    }
+
+    /* Fade edges so columns dissolve into the page */
+    .right::before,
+    .right::after {
+      content: '';
+      position: absolute;
+      left: 0; right: 0;
+      height: 120px;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .right::before {
+      top: 0;
+      background: linear-gradient(to bottom, #111 0%, transparent 100%);
+    }
+    .right::after {
+      bottom: 0;
+      background: linear-gradient(to top, #111 0%, transparent 100%);
+    }
+
+  
+
+    /* Respect reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      .col { animation: none !important; }
     }
 
     /* MOBILE RESPONSIVENESS */
@@ -218,11 +280,97 @@ body.fade-out {
   </div>
 
   <div class="right">
-    <img
-      src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.etsystatic.com%2F15320292%2Fr%2Fil%2F0c20d9%2F3158834106%2Fil_fullxfull.3158834106_iqca.jpg&f=1&nofb=1&ipt=593ec57d0dbd64c9e3102fb0ac62f65c56883200a08d6bc8a0a9308302a4b7c4"
-      alt="Featured artwork"
-      onerror="this.parentElement.style.background='#111'"
-    />
+    <!-- Column 1: 1st of each collection (1,5,9,13,17,21,25,29,33) — scrolls up -->
+    <div class="col">
+      <img src="images/artwork1.jpg"  alt="">
+      <img src="images/artwork5.jpg"  alt="">
+      <img src="images/artwork9.jpg"  alt="">
+      <img src="images/artwork13.jpg" alt="">
+      <img src="images/artwork17.jpg" alt="">
+      <img src="images/artwork21.jpg" alt="">
+      <img src="images/artwork25.jpg" alt="">
+      <img src="images/artwork29.jpg" alt="">
+      <img src="images/artwork33.jpg" alt="">
+      <!-- duplicate for seamless loop -->
+      <img src="images/artwork1.jpg"  alt="">
+      <img src="images/artwork5.jpg"  alt="">
+      <img src="images/artwork9.jpg"  alt="">
+      <img src="images/artwork13.jpg" alt="">
+      <img src="images/artwork17.jpg" alt="">
+      <img src="images/artwork21.jpg" alt="">
+      <img src="images/artwork25.jpg" alt="">
+      <img src="images/artwork29.jpg" alt="">
+      <img src="images/artwork33.jpg" alt="">
+    </div>
+
+    <!-- Column 2: 2nd of each collection (2,6,10,14,18,22,26,30,34) — scrolls down -->
+    <div class="col">
+      <img src="images/artwork2.jpg"  alt="">
+      <img src="images/artwork6.jpg"  alt="">
+      <img src="images/artwork34.jpg" alt="">
+      <img src="images/artwork30.jpg" alt="">
+      <img src="images/artwork26.jpg" alt="">
+      <img src="images/artwork22.jpg" alt="">
+      <img src="images/artwork18.jpg" alt="">
+      <img src="images/artwork14.jpg" alt="">
+      <img src="images/artwork10.jpg" alt="">
+      <!-- duplicate for seamless loop -->
+      <img src="images/artwork2.jpg"  alt="">
+      <img src="images/artwork6.jpg"  alt="">
+      <img src="images/artwork32.jpg" alt="">
+      <img src="images/artwork28.jpg" alt="">
+      <img src="images/artwork24.jpg" alt="">
+      <img src="images/artwork22.jpg" alt="">
+      <img src="images/artwork18.jpg" alt="">
+      <img src="images/artwork14.jpg" alt="">
+      <img src="images/artwork10.jpg" alt="">
+    </div>
+
+    <!-- Column 3: 3rd of each collection (3,7,11,15,19,23,27,31,35) — scrolls up -->
+    <div class="col">
+      <img src="images/artwork3.jpg"  alt="">
+      <img src="images/artwork7.jpg"  alt="">
+      <img src="images/artwork11.jpg" alt="">
+      <img src="images/artwork15.jpg" alt="">
+      <img src="images/artwork19.jpg" alt="">
+      <img src="images/artwork23.jpg" alt="">
+      <img src="images/artwork27.jpg" alt="">
+      <img src="images/artwork31.jpg" alt="">
+      <img src="images/artwork35.jpg" alt="">
+      <!-- duplicate for seamless loop -->
+      <img src="images/artwork3.jpg"  alt="">
+      <img src="images/artwork7.jpg"  alt="">
+      <img src="images/artwork11.jpg" alt="">
+      <img src="images/artwork15.jpg" alt="">
+      <img src="images/artwork19.jpg" alt="">
+      <img src="images/artwork23.jpg" alt="">
+      <img src="images/artwork27.jpg" alt="">
+      <img src="images/artwork31.jpg" alt="">
+      <img src="images/artwork35.jpg" alt="">
+    </div>
+
+    <!-- Column 4: 4th of each collection (4,8,12,16,20,24,28,32,36) — scrolls down -->
+    <div class="col">
+      <img src="images/artwork4.jpg"  alt="">
+      <img src="images/artwork8.jpg"  alt="">
+      <img src="images/artwork36.jpg" alt="">
+      <img src="images/artwork32.jpg" alt="">
+      <img src="images/artwork28.jpg" alt="">
+      <img src="images/artwork24.jpg" alt="">
+      <img src="images/artwork20.jpg" alt="">
+      <img src="images/artwork16.jpg" alt="">
+      <img src="images/artwork12.jpg" alt="">
+      <!-- duplicate for seamless loop -->
+      <img src="images/artwork4.jpg"  alt="">
+      <img src="images/artwork8.jpg"  alt="">
+      <img src="images/artwork36.jpg" alt="">
+      <img src="images/artwork32.jpg" alt="">
+      <img src="images/artwork28.jpg" alt="">
+      <img src="images/artwork24.jpg" alt="">
+      <img src="images/artwork20.jpg" alt="">
+      <img src="images/artwork16.jpg" alt="">
+      <img src="images/artwork12.jpg" alt="">
+    </div>
   </div>
 
   <script>

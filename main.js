@@ -37,7 +37,7 @@ const modal = createAppKit({
     name: 'Anand Sharma Art',
     description: 'Digital Art Gallery & Marketplace',
     url: window.location.origin,
-    icons: ['https://yourdomain.com/favicon.ico']
+    icons: [`${window.location.origin}/images/favicon.svg`]
   },
   projectId,
   excludeWalletIds: [
